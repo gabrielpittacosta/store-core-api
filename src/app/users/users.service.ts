@@ -14,7 +14,7 @@ export class UsersService {
     return await this.userRepository.findAll()
   }
 
-  async findOne(id): Promise<User> {
+  async findOne(id) {
     return await this.userRepository.findOneUser(id)
   }
 
