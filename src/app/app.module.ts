@@ -5,6 +5,6 @@ import { DatabaseModule } from '../database/database.module'
 import { ConfigModule } from '@nestjs/config'
 
 @Module({
-  imports: [ConfigModule.forRoot() ,UsersModule, DatabaseModule],
+  imports: [ConfigModule.forRoot(), UsersModule, DatabaseModule],
 })
 export class AppModule {}

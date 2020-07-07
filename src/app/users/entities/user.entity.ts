@@ -1,69 +1,75 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm'
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm'
 
-@Entity()
-export class User{
-  @PrimaryColumn()
-  id: string
+@Entity({ name: 'user' })
+export class User {
+  @PrimaryGeneratedColumn()
+  private id: number
 
   @Column({
     name: 'name',
     type: 'varchar',
     length: 30,
-    nullable: false
+    nullable: false,
   })
-  name: string
+  public name: string
 
   @Column({
     name: 'last_name',
     type: 'varchar',
     length: 30,
-    nullable: false
+    nullable: false,
   })
-  lastName: string
+  public lastName: string
 
   @Column({
     name: 'email',
     type: 'varchar',
     length: 30,
     nullable: false,
-    unique: true
+    unique: true,
   })
-  email: string
+  public email: string
 
   @Column({
     name: 'address_id',
     type: 'int',
-    nullable: false
+    nullable: true,
   })
-  addressId: number
+  private addressId: number
 
   @Column({
     name: 'role_id',
     type: 'int',
-    nullable: false
+    nullable: true,
   })
-  roleId: number
+  private roleId: number
 
   @Column({
     name: 'login',
     type: 'varchar',
     length: 30,
     nullable: false,
-    unique: true
+    unique: true,
   })
-  login: string
+  public login: string
 
   @Column({
     name: 'password',
     type: 'varchar',
     length: 30,
-    nullable: false
+    nullable: false,
   })
-  password: string
+  public password: string
 
   @CreateDateColumn({ type: 'timestamp' })
-  createdAt: Date
+  private createdAt: Date
 
   @UpdateDateColumn({ type: 'timestamp' })
-  updatedAt: Date
+  private updatedAt: Date
 }
