@@ -1,5 +1,5 @@
-import { IsEmail, IsNotEmpty } from 'class-validator'
-import { User } from '../entities/user.entity'
+import { IsEmail, IsEnum, IsNotEmpty } from 'class-validator'
+import { UserRole } from '../enums/user-role.enum'
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -18,13 +18,17 @@ export class CreateUserDto {
   @IsNotEmpty()
   password: string
 
-  constructor(partial: Partial<User>) {
+  @IsEnum(UserRole)
+  role: number
+
+  constructor(partial: any) {
     Object.assign(this, {
       name: partial.name,
       lastName: partial.lastName,
       email: partial.email,
       login: partial.login,
-      password: partial.password
+      password: partial.password,
+      role: partial.roleId,
     })
   }
 }

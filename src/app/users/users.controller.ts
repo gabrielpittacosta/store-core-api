@@ -1,7 +1,18 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Req } from '@nestjs/common'
+import {
+  Body,
+  ClassSerializerInterceptor,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  UseInterceptors,
+} from '@nestjs/common'
 import { UsersService } from './users.service'
 import { CreateUserDto } from './dtos/create-user.dto'
 import { User } from './entities/user.entity'
+import { GetUserDto } from './dtos/get-user.dto'
 
 @Controller('api/v1/users')
 export class UsersController {
@@ -13,8 +24,9 @@ export class UsersController {
   }
 
   @Get(':user_id')
-  async findOne(@Param('user_id') id: number): Promise<User> {
-    return this.usersService.findOne(id)
+  @UseInterceptors(ClassSerializerInterceptor)
+  async findOne(@Param('user_id') id: number): Promise<GetUserDto> {
+    return this.usersService.findOne(id).then(user => new GetUserDto(user))
   }
 
   @Get()
