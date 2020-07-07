@@ -2,14 +2,16 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
+import { UserRole } from './user-role.entity'
 
 @Entity({ name: 'user' })
 export class User {
   @PrimaryGeneratedColumn()
-  private id: number
+  public id: number
 
   @Column({
     name: 'name',
@@ -41,14 +43,19 @@ export class User {
     type: 'int',
     nullable: true,
   })
-  private addressId: number
+  public addressId: number
 
+  @OneToOne(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    type => UserRole,
+    userRole => userRole.userId,
+  )
   @Column({
     name: 'role_id',
-    type: 'int',
+    type: 'varchar',
     nullable: true,
   })
-  private roleId: number
+  public roleId: number
 
   @Column({
     name: 'login',
