@@ -14,8 +14,12 @@ export class UsersService {
     return await this.userRepository.findAll()
   }
 
-  async findOne(id) {
-    return await this.userRepository.findOneUser(id)
+  async findOne(id: number) {
+    return await this.userRepository.findById(id)
+  }
+
+  async findByLogin(login: string) {
+    return await this.userRepository.findByLogin(login)
   }
 
   async create(createUserDto: CreateUserDto) {

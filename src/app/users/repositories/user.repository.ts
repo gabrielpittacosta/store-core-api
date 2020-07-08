@@ -9,10 +9,17 @@ export class UserRepository extends Repository<User> {
     return await this.createQueryBuilder('users').getMany()
   }
 
-  async findOneUser(id: number): Promise<User> {
+  async findById(id: number): Promise<User> {
     return await this.createQueryBuilder('user')
       .leftJoinAndSelect('user.roleId', 'r', 'user.id = r.userId')
       .where(`user.id = ${id}`)
+      .getOne()
+  }
+
+  async findByLogin(login: string): Promise<User> {
+    return await this.createQueryBuilder('user')
+      .leftJoinAndSelect('user.roleId', 'r', 'user.id = r.userId')
+      .where(`user.login = '${login}'`)
       .getOne()
   }
 
