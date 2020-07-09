@@ -35,3 +35,6 @@ lerna-debug.log*
 
 ## dotENV
 .env
+
+## ORM CONFIG
+ormconfig.json

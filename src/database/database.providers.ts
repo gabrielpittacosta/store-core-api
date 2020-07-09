@@ -16,7 +16,12 @@ export const databaseProviders = [
         password: process.env.DATABASE_PASSWORD,
         database: process.env.DATABASE_DATA_SOURCE,
         entities: [User, UserRoles, UserRole, Product],
-        synchronize: true,
+        migrationsTableName: 'migration_table',
+        migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
+        migrationsRun: true,
+        cli: {
+          migrationsDir: 'src/app/database/migrations'
+        }
       }),
   },
 ]
