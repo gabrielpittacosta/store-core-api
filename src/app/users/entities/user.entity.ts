@@ -10,8 +10,8 @@ import { UserRole } from './user-role.entity'
 
 @Entity({ name: 'user' })
 export class User {
-  @PrimaryGeneratedColumn()
-  public id: number
+  @PrimaryGeneratedColumn('uuid')
+  public id: string
 
   @Column({
     name: 'name',
@@ -54,6 +54,7 @@ export class User {
     name: 'role_id',
     type: 'varchar',
     nullable: true,
+    length: 244,
   })
   public roleId: number
 
