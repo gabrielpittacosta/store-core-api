@@ -1,10 +1,10 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn } from 'typeorm'
+import { Column, Entity, JoinColumn, ManyToMany, PrimaryColumn } from 'typeorm'
 import { UserRole } from './user-role.entity'
 
 @Entity({ name: 'role' })
 export class UserRoles {
   @PrimaryColumn({ name: 'id' })
-  @OneToOne(
+  @ManyToMany(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     type => UserRole,
     userRoles => userRoles.roleId,

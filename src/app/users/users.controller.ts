@@ -32,27 +32,32 @@ export class UsersController {
   }
 
   @Post()
+  @UseGuards(AuthGuard('jwt'))
   async create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto)
   }
 
   @Get(':user_id')
+  @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(ClassSerializerInterceptor)
-  async findOne(@Param('user_id') id: number): Promise<GetUserDto> {
+  async findOne(@Param('user_id') id: string): Promise<GetUserDto> {
     return this.usersService.findOne(id).then(user => new GetUserDto(user))
   }
 
   @Get()
+  @UseGuards(AuthGuard('jwt'))
   async findAll(): Promise<User[]> {
     return this.usersService.findAll()
   }
 
   @Put()
+  @UseGuards(AuthGuard('jwt'))
   async update() {
     return
   }
 
   @Delete(':user_id')
+  @UseGuards(AuthGuard('jwt'))
   async delete(@Param('user_id') id: number) {
     return this.usersService.deleteUser(id)
   }

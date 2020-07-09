@@ -6,10 +6,12 @@ import { UserRole } from '../entities/user-role.entity'
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
   async findAll(): Promise<User[]> {
-    return await this.createQueryBuilder('users').getMany()
+    return await this.createQueryBuilder('users')
+      .orderBy('ASC')
+      .getMany()
   }
 
-  async findById(id: number): Promise<User> {
+  async findById(id: string): Promise<User> {
     return await this.createQueryBuilder('user')
       .leftJoinAndSelect('user.roleId', 'r', 'user.id = r.userId')
       .where(`user.id = ${id}`)
@@ -24,7 +26,7 @@ export class UserRepository extends Repository<User> {
   }
 
   async createUser(createUserDto: CreateUserDto) {
-    return this.createQueryBuilder('users')
+    return await this.createQueryBuilder('users')
       .insert()
       .values([
         {
@@ -36,10 +38,17 @@ export class UserRepository extends Repository<User> {
           roleId: createUserDto.role,
         },
       ])
-      .insert()
-      .into(UserRole)
-      .values({ userId: 1, roleId: createUserDto.role })
       .execute()
+      .then(user => {
+        this.createQueryBuilder('user-role')
+          .insert()
+          .into(UserRole)
+          .values({
+            userId: user.identifiers.map(userId => userId.id).toString(),
+            roleId: createUserDto.role,
+          })
+          .execute()
+      })
   }
 
   async deleteUser(id: number) {
