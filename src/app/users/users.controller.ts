@@ -7,7 +7,7 @@ import {
   Param,
   Post,
   Put,
-  Req,
+  Req, UseFilters,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common'
@@ -17,6 +17,7 @@ import { User } from './entities/user.entity'
 import { GetUserDto } from './dtos/get-user.dto'
 import { AuthGuard } from '@nestjs/passport'
 import { AuthService } from '../auth/auth.service'
+import { HttpExceptionFilter } from '../filters/http-exception.filter'
 
 @Controller('api/v1/users')
 export class UsersController {
@@ -27,6 +28,7 @@ export class UsersController {
 
   @UseGuards(AuthGuard('local'))
   @Post('auth/login')
+  @UseFilters(new HttpExceptionFilter())
   async login(@Req() req) {
     return this.authService.login(req.user)
   }
