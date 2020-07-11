@@ -4,7 +4,6 @@ import { UsersService } from './users.service'
 import { userProviders } from './users.providers'
 import { DatabaseModule } from '../../database/database.module'
 import { AuthModule } from '../auth/auth.module'
-import { AuthService } from '../auth/auth.service'
 
 @Module({
   controllers: [UsersController],

@@ -1,5 +1,6 @@
 import { IsEmail, IsEnum, IsNotEmpty } from 'class-validator'
 import { UserRole } from '../enums/user-role.enum'
+import { User } from '../entities/user.entity'
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -21,7 +22,7 @@ export class CreateUserDto {
   @IsEnum(UserRole)
   role: number
 
-  constructor(partial: any) {
+  constructor(partial: User) {
     Object.assign(this, {
       name: partial.name,
       lastName: partial.lastName,
