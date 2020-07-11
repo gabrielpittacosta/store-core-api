@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 
 @Entity({ name: 'product' })
 export class Product {
@@ -44,16 +44,15 @@ export class Product {
   public unitPrice: number
 
   @Column({
-    name: 'units_on_order',
-    type: 'integer',
-    nullable: false,
-  })
-  public unitsOnOrder: number
-
-  @Column({
     name: 'discontinued',
     type: 'boolean',
-    nullable: false
+    nullable: false,
   })
   public discontinued: boolean
+
+  @CreateDateColumn({ type: 'timestamp' })
+  private createdAt: Date
+
+  @UpdateDateColumn({ type: 'timestamp' })
+  private updatedAt: Date
 }
